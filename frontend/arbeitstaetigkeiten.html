@@ -221,16 +221,21 @@ document.querySelectorAll("#tableBody tr td:first-child")
 }
 
 async function deleteSelected(){
-let rows = document.querySelectorAll("#tableBody tr");
-let indices=[];
-rows.forEach((row,i)=>{
-if(row.children[0].innerText==="✓") indices.push(i);
-});
-for(let i=indices.length-1;i>=0;i--){
-await fetch(API + "/arbeitstaetigkeiten/" + indices[i], {
-    method: "DELETE"
-});
-loadData();
+
+    let rows = document.querySelectorAll("#tableBody tr");
+    let indices=[];
+
+    rows.forEach((row,i)=>{
+        if(row.children[0].innerText==="✓") indices.push(i);
+    });
+
+    for(let i=indices.length-1;i>=0;i--){
+        await fetch(API + "/arbeitstaetigkeiten/" + indices[i], {
+            method: "DELETE"
+        });
+    }
+
+    loadData();
 }
 
 function openModal(){
