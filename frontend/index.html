@@ -51,7 +51,9 @@ body {
 </div>
 
 <div class="content" id="content">
-    <h2>Übersicht</h2>
+    <iframe src="uebersicht.html"
+        style="width:100%; height:calc(100vh - 60px); border:none;">
+    </iframe>
 </div>
 
 <script>
@@ -127,6 +129,11 @@ function showTab(e, tabName) {
 
     }
 }
+
+window.onload = function() {
+    const defaultTab = document.querySelector(".tab.active");
+    showTab({ target: defaultTab }, "uebersicht");
+};
 </script>
 
 </body>
