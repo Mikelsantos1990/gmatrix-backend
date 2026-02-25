@@ -135,7 +135,7 @@ let branchenStatus = {};
 
 async function loadData(){
 
-const res = await fetch("http://127.0.0.1:8000/arbeitstaetigkeiten");
+const API = "https://gmatrix-backend.onrender.com";
 alleDaten = await res.json();
 
 const filter = document.getElementById("filter").value.toLowerCase();
@@ -228,8 +228,9 @@ rows.forEach((row,i)=>{
 if(row.children[0].innerText==="✓") indices.push(i);
 });
 for(let i=indices.length-1;i>=0;i--){
-await fetch(`http://127.0.0.1:8000/arbeitstaetigkeiten/${indices[i]}`,{method:"DELETE"});
-}
+await fetch(API + "/arbeitstaetigkeiten/" + editIndex, {
+    method: "DELETE"
+});
 loadData();
 }
 
@@ -269,13 +270,13 @@ for(let i=0;i<felder.length;i++){
 values.push(document.getElementById(`f${i}`).value);
 }
 if(editIndex!==null){
-await fetch(`http://127.0.0.1:8000/arbeitstaetigkeiten/${editIndex}`,{
-method:"DELETE"});
-}
-await fetch("http://127.0.0.1:8000/arbeitstaetigkeiten",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify(values)
+await fetch(API + "/arbeitstaetigkeiten/" + editIndex, {
+    method: "DELETE"
+});
+await fetch(API + "/arbeitstaetigkeiten", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify(values)
 });
 loadData();
 bootstrap.Modal.getInstance(document.getElementById("editorModal")).hide();
@@ -307,7 +308,7 @@ values[3] || "",
 values[4] || ""
 ];
 
-await fetch("http://127.0.0.1:8000/arbeitstaetigkeiten", {
+await fetch(API + "/arbeitstaetigkeiten", {
 method: "POST",
 headers: { "Content-Type": "application/json" },
 body: JSON.stringify(row)
