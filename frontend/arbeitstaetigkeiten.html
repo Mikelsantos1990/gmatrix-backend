@@ -120,6 +120,8 @@ body {
 </div>
 
 <script>
+const API = "https://gmatrix-backend.onrender.com";
+
 const felder = [
 "Branche",
 "Kategorie",
@@ -135,45 +137,42 @@ let branchenStatus = {};
 
 async function loadData(){
 
-const API = "https://gmatrix-backend.onrender.com";
-alleDaten = await res.json();
+    const res = await fetch(API + "/arbeitstaetigkeiten");
+    alleDaten = await res.json();
 
-const filter = document.getElementById("filter").value.toLowerCase();
-const tbody = document.getElementById("tableBody");
-tbody.innerHTML="";
+    const filter = document.getElementById("filter").value.toLowerCase();
+    const tbody = document.getElementById("tableBody");
+    tbody.innerHTML="";
 
-generateBranchenFilter();
+    generateBranchenFilter();
 
-let gefiltert = alleDaten.filter(row => {
+    let gefiltert = alleDaten.filter(row => {
 
-while(row.length < felder.length) row.push("");
+        while(row.length < felder.length) row.push("");
 
-if(filter && !row.join(" ").toLowerCase().includes(filter)) return false;
+        if(filter && !row.join(" ").toLowerCase().includes(filter)) return false;
 
-if(Object.keys(branchenStatus).length){
-if(!branchenStatus[row[0]]) return false;
-}
+        if(Object.keys(branchenStatus).length){
+            if(!branchenStatus[row[0]]) return false;
+        }
 
-return true;
-});
+        return true;
+    });
 
-gefiltert.sort((a,b)=>{
+    gefiltert.sort((a,b)=>{
+        return a[0].localeCompare(b[0]) ||
+               a[1].localeCompare(b[1]) ||
+               a[2].localeCompare(b[2]) ||
+               a[3].localeCompare(b[3]);
+    });
 
-return a[0].localeCompare(b[0]) ||
-       a[1].localeCompare(b[1]) ||
-       a[2].localeCompare(b[2]) ||
-       a[3].localeCompare(b[3]);
-
-});
-
-gefiltert.forEach((row,index)=>{
-
-tbody.innerHTML += `
-<tr>
-<td onclick="toggleCheck(this)">☐</td>
-${row.map(v=>`<td>${v}</td>`).join("")}
-</tr>`;
-});
+    gefiltert.forEach((row,index)=>{
+        tbody.innerHTML += `
+        <tr>
+        <td onclick="toggleCheck(this)">☐</td>
+        ${row.map(v=>`<td>${v}</td>`).join("")}
+        </tr>`;
+    });
 }
 
 function generateBranchenFilter(){
@@ -228,7 +227,7 @@ rows.forEach((row,i)=>{
 if(row.children[0].innerText==="✓") indices.push(i);
 });
 for(let i=indices.length-1;i>=0;i--){
-await fetch(API + "/arbeitstaetigkeiten/" + editIndex, {
+await fetch(API + "/arbeitstaetigkeiten/" + indices[i], {
     method: "DELETE"
 });
 loadData();
@@ -265,21 +264,26 @@ container.innerHTML += `
 }
 
 async function saveEntry(){
-let values=[];
-for(let i=0;i<felder.length;i++){
-values.push(document.getElementById(`f${i}`).value);
-}
-if(editIndex!==null){
-await fetch(API + "/arbeitstaetigkeiten/" + editIndex, {
-    method: "DELETE"
-});
-await fetch(API + "/arbeitstaetigkeiten", {
-    method: "POST",
-    headers: {"Content-Type":"application/json"},
-    body: JSON.stringify(values)
-});
-loadData();
-bootstrap.Modal.getInstance(document.getElementById("editorModal")).hide();
+
+    let values=[];
+    for(let i=0;i<felder.length;i++){
+        values.push(document.getElementById(`f${i}`).value);
+    }
+
+    if(editIndex!==null){
+        await fetch(API + "/arbeitstaetigkeiten/" + editIndex, {
+            method: "DELETE"
+        });
+    }
+
+    await fetch(API + "/arbeitstaetigkeiten", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(values)
+    });
+
+    loadData();
+    bootstrap.Modal.getInstance(document.getElementById("editorModal")).hide();
 }
 
 async function importCSV(event) {
