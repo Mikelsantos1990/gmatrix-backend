@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Schichten</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+    background:#f4f6f9;
+    height:100%;
+}
+
+.sidebar {
+    width:17.5%;            /* 30% kleiner als 25% */
+    background:white;
+    border-right:1px solid #e0e0e0;
+}
+
+.main-content {
+    width:82.5%;
+}
+
+.status-led {
+    font-size:28px;
+    font-weight:bold;
+}
+
+.table thead {
+    background:#1f2937;
+    color:white;
+}
+
+.table td {
+    vertical-align:middle;
+    font-size:14px;
+}
+
+.btn-sidebar {
+    text-align:left;
+}
+
+.modal-body label {
+    font-weight:500;
+    margin-top:8px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container-fluid h-100">
+<div class="d-flex h-100">
+
+
+<!-- SIDEBAR -->
+<div class="col-3 sidebar p-4 d-flex flex-column">
+
+<h5 class="fw-bold mb-4">Schichten</h5>
+
+<button class="btn btn-success btn-sidebar mb-2"  onclick="neu()">➕ Neues Team</button>
+<button class="btn btn-primary btn-sidebar mb-2" onclick="bearbeiten()">✏️ Bearbeiten</button>
+<button class="btn btn-secondary btn-sidebar mb-2"  onclick="importCSV()">📥 CSV importieren</button>
+<button class="btn btn-warning btn-sidebar mb-2"  onclick="toggleAlle()">☑ Alle auswählen</button>
+<button class="btn btn-danger btn-sidebar mb-2"  onclick="loeschen()">🗑️ Löschen</button>
+
+<div class="mt-auto pt-3">
+<small class="text-muted" id="statusSchichten"></small>
+</div>
+
+</div>
+
+<!-- MAIN -->
+<div class="main-content p-4">
+
+<input class="form-control mb-3" placeholder="🔍 Filtern..." oninput="filterTable(this.value)">
+
+<div class="table-responsive" style="max-height:calc(100vh - 160px); overflow-y:auto;">
+<table class="table table-bordered table-striped" id="schichtenTable">
+<thead class="table-dark">
+<tr>
+<th>✓</th>
+<th>Teamname</th>
+<th>Start A</th>
+<th>Ende B</th>
+<th>Start C</th>
+<th>Ende D</th>
+<th>Stunden (h)</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+</div>
+
+</div>
+</div>
+</div>
+
+<script>
+
+const API = "http://127.0.0.1:8000";
+
+/* ================= LOAD ================= */
+async function loadData(){
+    const res = await fetch(API + "/schichten");
+    const data = await res.json();
+
+    const tbody = document.querySelector("#schichtenTable tbody");
+    tbody.innerHTML = "";
+
+    data.forEach((row,index)=>{
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td><input type="checkbox" data-index="${index}"></td>
+            <td>${row[0]||""}</td>
+            <td>${row[1]||""}</td>
+            <td>${row[2]||""}</td>
+            <td>${row[3]||""}</td>
+            <td>${row[4]||""}</td>
+            <td>${row[5]||""}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    document.getElementById("statusSchichten").innerText =
+        data.length + " Teams geladen";
+}
+
+
+/* ================= STUNDEN BERECHNEN ================= */
+function berechneStunden(a,b,c,d){
+
+    function diff(start,end){
+        if(!start || !end) return 0;
+        const [sh,sm]=start.split(":").map(Number);
+        const [eh,em]=end.split(":").map(Number);
+
+        let s = sh*60+sm;
+        let e = eh*60+em;
+
+        if(e < s) e += 1440;
+
+        return (e-s)/60;
+    }
+
+    return (diff(a,b)+diff(c,d)).toFixed(1);
+}
+
+
+/* ================= NEU ================= */
+async function neu(){
+
+    const team = prompt("Teamname:");
+    const a = prompt("Start A (HH:MM)");
+    const b = prompt("Ende B (HH:MM)");
+    const c = prompt("Start C (HH:MM)");
+    const d = prompt("Ende D (HH:MM)");
+
+    if(!team) return;
+
+    const stunden = berechneStunden(a,b,c,d);
+
+    await fetch(API+"/schichten",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify([team,a,b,c,d,stunden])
+    });
+
+    loadData();
+}
+
+
+/* ================= BEARBEITEN ================= */
+async function bearbeiten(){
+
+    const checked = document.querySelectorAll("#schichtenTable input[type=checkbox]:checked");
+
+    if(checked.length !== 1){
+        alert("Bitte genau ein Team auswählen.");
+        return;
+    }
+
+    const index = checked[0].dataset.index;
+
+    const team = prompt("Neuer Teamname:");
+    const a = prompt("Start A (HH:MM)");
+    const b = prompt("Ende B (HH:MM)");
+    const c = prompt("Start C (HH:MM)");
+    const d = prompt("Ende D (HH:MM)");
+
+    if(!team) return;
+
+    await fetch(API+"/schichten/"+index,{method:"DELETE"});
+
+    const stunden = berechneStunden(a,b,c,d);
+
+    await fetch(API+"/schichten",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify([team,a,b,c,d,stunden])
+    });
+
+    loadData();
+}
+
+
+/* ================= LÖSCHEN ================= */
+async function loeschen(){
+
+    const checks = document.querySelectorAll("#schichtenTable input[type=checkbox]:checked");
+    if(checks.length===0) return;
+
+    if(!confirm("Ausgewählte Teams löschen?")) return;
+
+    for(let c of checks){
+        await fetch(API+"/schichten/"+c.dataset.index,{method:"DELETE"});
+    }
+
+    loadData();
+}
+
+
+/* ================= ALLE ================= */
+function toggleAlle(){
+    const cbs=document.querySelectorAll("#schichtenTable input[type=checkbox]");
+    const all=[...cbs].every(cb=>cb.checked);
+    cbs.forEach(cb=>cb.checked=!all);
+}
+
+
+/* ================= FILTER ================= */
+function filterTable(text){
+    text=text.toLowerCase();
+    document.querySelectorAll("#schichtenTable tbody tr").forEach(r=>{
+        r.style.display =
+            r.innerText.toLowerCase().includes(text) ? "" : "none";
+    });
+}
+
+
+/* ================= CSV ================= */
+function importCSV(){
+
+    const input=document.createElement("input");
+    input.type="file";
+    input.accept=".csv";
+
+    input.onchange=async function(e){
+
+        const file=e.target.files[0];
+        const text=await file.text();
+        const lines=text.split("\n").slice(1);
+
+        for(let line of lines){
+
+            if(!line.trim()) continue;
+
+            const row=line.split(";").map(v=>v.trim());
+
+            while(row.length<5) row.push("");
+
+            const stunden=berechneStunden(row[1],row[2],row[3],row[4]);
+
+            await fetch(API+"/schichten",{
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify(row.slice(0,5).concat(stunden))
+            });
+        }
+
+        alert("CSV importiert");
+        loadData();
+    };
+
+    input.click();
+}
+
+loadData();
+
+</script>
+</body>
+</html>

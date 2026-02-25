@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Rechnung</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+    background:#f4f6f9;
+    height:100%;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width:17.5%;
+    background:white;
+    border-right:1px solid #e0e0e0;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    width:82.5%;
+}
+
+/* STATUS LED (falls später benötigt) */
+.status-led {
+    font-size:28px;
+    font-weight:bold;
+}
+
+/* TABLE STYLE */
+.table thead {
+    background:#1f2937;
+    color:white;
+}
+
+.table td {
+    vertical-align:middle;
+    font-size:14px;
+}
+
+/* SIDEBAR BUTTONS */
+.btn-sidebar {
+    text-align:left;
+}
+
+/* MODAL LABELS */
+.modal-body label {
+    font-weight:500;
+    margin-top:8px;
+}
+
+/* RECHNUNGS-VORSCHAU */
+pre {
+    background:white;
+    padding:20px;
+    border-radius:6px;
+    font-family:Consolas, monospace;
+    font-size:14px;
+    min-height:400px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+</style>
+</head>
+<body>
+
+
+<div class="container-fluid h-100">
+<div class="d-flex h-100">
+
+
+<!-- SIDEBAR -->
+<div class="col-3 sidebar p-4 d-flex flex-column">
+
+<h5 class="fw-bold mb-4">Rechnung</h5>
+
+<button class="btn btn-success btn-sidebar mb-2" onclick="openBriefkopfModal()">🏷 Briefkopf</button>
+    <button class="btn btn-primary btn-sidebar mb-2" onclick="openKundeModal()">👤 Kunde</button>
+    <button class="btn btn-primary btn-sidebar mb-2" onclick="openRechnungModal()">🧾 Rechnungsdaten</button>
+<button class="btn btn-secondary btn-sidebar mb-2" onclick="openPositionModal()">📋 Positionen</button>
+
+<hr class="my-3">
+    <button class="btn btn-success btn-sidebar mb-2" onclick="saveRechnung()">💾 Speichern</button>
+    <button class="btn btn-secondary btn-sidebar mb-2" onclick="loadRechnung()">📂 Laden</button>
+
+    <button class="btn btn-danger btn-sidebar mb-2" onclick="clearRechnung()">🗑 Rechnung leeren</button>
+    <hr class="my-3">
+<button class="btn btn-dark btn-sidebar mt-2" onclick="printPDF()">🖨 PDF</button>
+
+</div>
+
+<!-- MAIN -->
+<div class="main-content p-4">
+
+<pre id="preview"></pre>
+
+</div>
+</div>
+</div>
+<div class="modal fade" id="rechnungModal">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Rechnungsdaten</h5>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body">
+<label>Rechnungsnummer</label>
+<input id="rm_nummer" class="form-control">
+<label class="mt-3">Rechnungsdatum</label>
+<input id="rm_datum" class="form-control">
+</div>
+<div class="modal-footer">
+<button class="btn btn-success" onclick="saveRechnungModal()">Speichern</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="kundeModal">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Kunde</h5>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body">
+<label>Firma</label>
+<input id="km_firma" class="form-control" placeholder="Mustermann GmbH">
+<label class="mt-3">Kontakt</label>
+<input id="km_kontakt" class="form-control" placeholder="Max Mustermann">
+<label class="mt-3">Adresse</label>
+<textarea id="km_adresse" class="form-control" placeholder="Straße\nPLZ Ort"></textarea>
+</div>
+<div class="modal-footer">
+<button class="btn btn-success" onclick="saveKundeModal()">Speichern</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="briefkopfModal">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Briefkopf</h5>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body">
+
+<label>Name</label>
+<input id="bk_name" class="form-control">
+
+<label class="mt-2">Adresse</label>
+<textarea id="bk_adresse" class="form-control"></textarea>
+
+<label class="mt-2">Telefon</label>
+<input id="bk_telefon" class="form-control">
+
+<label class="mt-2">E-Mail</label>
+<input id="bk_email" class="form-control">
+
+<label class="mt-2">Bank</label>
+<textarea id="bk_bank" class="form-control"></textarea>
+
+<label class="mt-2">Einleitung</label>
+<textarea id="bk_einleitung" class="form-control"></textarea>
+
+<label class="mt-2">Abschluss</label>
+<textarea id="bk_abschluss" class="form-control"></textarea>
+
+<label class="mt-2">Zahlungstext</label>
+<textarea id="bk_zahlung" class="form-control"></textarea>
+
+    <label class="mt-2">Grußformel</label>
+<input id="bk_gruss" class="form-control">
+
+<div class="form-check mt-3">
+<input class="form-check-input" type="checkbox" id="bk_steuerfrei">
+<label class="form-check-label">Umsatzsteuerbefreit</label>
+</div>
+
+<label class="mt-2">MwSt %</label>
+<input id="bk_mwst" type="number" class="form-control">
+
+    <label class="mt-3">Logo</label>
+<input type="file" id="bk_logo_file" class="form-control" accept="image/*">
+<img id="bk_logo_preview" style="max-height:80px; margin-top:10px; display:none;">
+
+</div>
+<div class="modal-footer">
+<button class="btn btn-success" onclick="saveBriefkopfModal()">Speichern</button>
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="modal fade" id="positionModal">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Neue Position</h5>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body">
+
+<div class="row">
+<div class="col-md-4">
+<label>Datum</label>
+<input id="pm_datum" class="form-control">
+</div>
+<div class="col-md-4">
+<label>Stundensatz</label>
+<input id="pm_satz" type="number" class="form-control">
+</div>
+<div class="col-md-4">
+<label>Stunden</label>
+<input id="pm_stunden" class="form-control" readonly>
+</div>
+</div>
+
+<label class="mt-3">Beschreibung</label>
+<textarea id="pm_text" class="form-control"></textarea>
+
+<label class="mt-3">Arbeitszeiten (07:00-08:00 13:00-14:00)</label>
+<input id="pm_zeiten" class="form-control">
+
+</div>
+<div class="modal-footer">
+<button class="btn btn-success" onclick="savePositionModal()">Speichern</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+
+let rechnung = {
+nummer:"2025-01",
+datum:new Date().toLocaleDateString("de-DE"),
+kunde:{
+firma:"Mustermann GmbH",
+kontakt:"Max Mustermann",
+adresse:"Musterstraße 1\n12345 Musterstadt"
+},
+positionen:[]
+};
+
+let briefkopf = {
+name:"Michael Grabner",
+adresse:"Schulstraße 7a\n85757 Karlsfeld",
+telefon:"",
+email:"",
+bank:"",
+einleitung:"Vielen Dank für das entgegengebrachte Vertrauen.",
+abschluss_text:"Wir bedanken uns herzlich für die Zusammenarbeit.",
+zahlungs_text:"Zahlung bitte innerhalb von 14 Tagen.",
+steuer_text:"* Umsatzsteuerbefreit gemäß §19 UStG.",
+gruss:"Mit freundlichen Grüßen",
+steuer_befreit:true,
+steuer_prozent:19,
+logo:null
+};
+
+function render(){
+
+let netto = 0;
+let gesamtstunden = 0;
+let steuer = 0;
+
+// --------------------------------------------------
+// HEADER + LAYOUT
+// --------------------------------------------------
+
+let html = `
+<div style="background:white; padding:60px; position:relative; min-height:900px; font-family:Consolas;">
+
+    <!-- Logo oben rechts -->
+    ${briefkopf.logo ? `
+    <div style="position:absolute; top:60px; right:60px; text-align:right;">
+        <img src="${briefkopf.logo}" style="max-height:90px;">
+    </div>
+    ` : ""}
+
+
+
+    <!-- Linker Bereich -->
+    <div style="white-space:pre-wrap;">
+${briefkopf.name}
+${briefkopf.adresse}
+
+${rechnung.kunde.firma}
+${rechnung.kunde.kontakt}
+${rechnung.kunde.adresse}
+
+
+
+<!-- RECHTER HEADER -->
+        <div style="text-align:right;">
+
+            <strong>Rechnungsnummer:</strong> ${rechnung.nummer}
+            <strong>Rechnungsdatum:</strong> ${rechnung.datum}
+        </div>
+
+Sehr geehrte Damen und Herren,
+${briefkopf.einleitung}
+
+----------------------------------------------------------------------------------------------------------------------------------
+Datum        Beschreibung                               Arbeitszeit      Std     Satz     Betrag
+----------------------------------------------------------------------------------------------------------------------------------
+`;
+
+// --------------------------------------------------
+// POSITIONEN
+// --------------------------------------------------
+
+rechnung.positionen.forEach(p=>{
+    let betrag = p.stunden * p.satz;
+    netto += betrag;
+    gesamtstunden += p.stunden;
+
+    html += `${p.datum.padEnd(12)} ${p.text.padEnd(40)} ${p.zeiten.padEnd(14)} ${p.stunden.toFixed(1).padStart(6)} ${p.satz.toFixed(2).padStart(8)} ${betrag.toFixed(2).padStart(10)}\n`;
+});
+
+// --------------------------------------------------
+// STEUER
+// --------------------------------------------------
+
+if(!briefkopf.steuer_befreit){
+    steuer = netto * briefkopf.steuer_prozent / 100;
+}
+
+// --------------------------------------------------
+// SUMMEN
+// --------------------------------------------------
+
+html += `
+----------------------------------------------------------------------------------------------------------------------------------
+Gesamtstunden: ${gesamtstunden.toFixed(1)}
+Zwischensumme: ${netto.toFixed(2)}
+`;
+
+if(briefkopf.steuer_befreit){
+    html += `${briefkopf.steuer_text}\n`;
+}else{
+    html += `MwSt ${briefkopf.steuer_prozent}%: ${steuer.toFixed(2)}\n`;
+}
+
+html += `
+Gesamtbetrag: ${(netto + steuer).toFixed(2)}
+
+${briefkopf.zahlungs_text}
+
+${briefkopf.abschluss_text}
+
+${briefkopf.gruss}
+${briefkopf.name}
+
+${briefkopf.bank}
+    </div>
+</div>
+`;
+
+// --------------------------------------------------
+// RENDER
+// --------------------------------------------------
+
+document.getElementById("preview").innerHTML = html;
+
+}
+
+
+
+
+
+function berechneStunden(zeiten){
+
+if(!zeiten) return 0;
+
+let gesamt = 0;
+let slots = zeiten.split(" ");
+
+slots.forEach(slot=>{
+let [start,ende] = slot.split("-");
+let [h1,m1] = start.split(":");
+let [h2,m2] = ende.split(":");
+
+let startMin = parseInt(h1)*60 + parseInt(m1);
+let endMin = parseInt(h2)*60 + parseInt(m2);
+
+gesamt += (endMin-startMin);
+});
+
+return (gesamt/60);
+}
+
+function clearRechnung(){
+rechnung.positionen=[];
+render();
+}
+
+function saveRechnung(){
+let data = {rechnung, briefkopf};
+let blob = new Blob([JSON.stringify(data,null,2)], {type:"application/json"});
+let a = document.createElement("a");
+a.href = URL.createObjectURL(blob);
+a.download = "rechnung.json";
+a.click();
+}
+
+function loadRechnung(){
+let input = document.createElement("input");
+input.type="file";
+input.accept=".json";
+
+input.onchange = e=>{
+let file = e.target.files[0];
+let reader = new FileReader();
+reader.onload = ()=>{
+let data = JSON.parse(reader.result);
+rechnung = data.rechnung;
+briefkopf = data.briefkopf;
+render();
+};
+reader.readAsText(file);
+};
+
+input.click();
+}
+
+async function printPDF(){
+
+try {
+
+    const response = await fetch("http://127.0.0.1:8000/rechnung/pdf", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ rechnung, briefkopf })
+    });
+
+    if (!response.ok) {
+        throw new Error("Serverfehler: " + response.status);
+    }
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+
+    const nummer = rechnung.nummer || "Rechnung";
+    a.download = `${nummer}.pdf`;
+
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    window.URL.revokeObjectURL(url);
+
+} catch (error) {
+
+    alert("Fehler beim Erstellen der PDF:\n" + error.message);
+    console.error(error);
+
+}
+}
+
+render();
+
+function openRechnungModal(){
+document.getElementById("rm_nummer").value = rechnung.nummer;
+document.getElementById("rm_datum").value = rechnung.datum;
+new bootstrap.Modal(document.getElementById("rechnungModal")).show();
+}
+
+function saveRechnungModal(){
+rechnung.nummer = document.getElementById("rm_nummer").value;
+rechnung.datum = document.getElementById("rm_datum").value;
+render();
+bootstrap.Modal.getInstance(document.getElementById("rechnungModal")).hide();
+}
+
+function openKundeModal(){
+document.getElementById("km_firma").value = rechnung.kunde.firma;
+document.getElementById("km_kontakt").value = rechnung.kunde.kontakt;
+document.getElementById("km_adresse").value = rechnung.kunde.adresse;
+new bootstrap.Modal(document.getElementById("kundeModal")).show();
+}
+
+function saveKundeModal(){
+rechnung.kunde.firma = document.getElementById("km_firma").value;
+rechnung.kunde.kontakt = document.getElementById("km_kontakt").value;
+rechnung.kunde.adresse = document.getElementById("km_adresse").value;
+render();
+bootstrap.Modal.getInstance(document.getElementById("kundeModal")).hide();
+}
+
+function openBriefkopfModal(){
+document.getElementById("bk_name").value = briefkopf.name;
+document.getElementById("bk_adresse").value = briefkopf.adresse;
+document.getElementById("bk_telefon").value = briefkopf.telefon;
+document.getElementById("bk_email").value = briefkopf.email;
+document.getElementById("bk_bank").value = briefkopf.bank;
+document.getElementById("bk_einleitung").value = briefkopf.einleitung;
+document.getElementById("bk_abschluss").value = briefkopf.abschluss_text;
+document.getElementById("bk_zahlung").value = briefkopf.zahlungs_text;
+document.getElementById("bk_gruss").value = briefkopf.gruss;
+document.getElementById("bk_steuerfrei").checked = briefkopf.steuer_befreit;
+document.getElementById("bk_mwst").value = briefkopf.steuer_prozent;
+if(briefkopf.logo){
+    document.getElementById("bk_logo_preview").src = briefkopf.logo;
+    document.getElementById("bk_logo_preview").style.display = "block";
+}else{
+    document.getElementById("bk_logo_preview").style.display = "none";
+}
+new bootstrap.Modal(document.getElementById("briefkopfModal")).show();
+}
+
+function saveBriefkopfModal(){
+briefkopf.name = document.getElementById("bk_name").value;
+briefkopf.adresse = document.getElementById("bk_adresse").value;
+briefkopf.telefon = document.getElementById("bk_telefon").value;
+briefkopf.email = document.getElementById("bk_email").value;
+briefkopf.bank = document.getElementById("bk_bank").value;
+briefkopf.einleitung = document.getElementById("bk_einleitung").value;
+briefkopf.abschluss_text = document.getElementById("bk_abschluss").value;
+briefkopf.zahlungs_text = document.getElementById("bk_zahlung").value;
+briefkopf.gruss = document.getElementById("bk_gruss").value;
+briefkopf.steuer_befreit = document.getElementById("bk_steuerfrei").checked;
+briefkopf.steuer_prozent = parseFloat(document.getElementById("bk_mwst").value) || 0;
+render();
+bootstrap.Modal.getInstance(document.getElementById("briefkopfModal")).hide();
+}
+
+document.addEventListener("input", function(e){
+if(e.target.id==="pm_zeiten"){
+let stunden = berechneStunden(e.target.value);
+document.getElementById("pm_stunden").value = stunden.toFixed(2);
+}
+});
+
+function openPositionModal(){
+document.getElementById("pm_datum").value="";
+document.getElementById("pm_text").value="";
+document.getElementById("pm_zeiten").value="";
+document.getElementById("pm_satz").value="";
+document.getElementById("pm_stunden").value="";
+new bootstrap.Modal(document.getElementById("positionModal")).show();
+}
+
+function savePositionModal(){
+let datum = document.getElementById("pm_datum").value;
+let text = document.getElementById("pm_text").value;
+let zeiten = document.getElementById("pm_zeiten").value;
+let satz = parseFloat(document.getElementById("pm_satz").value);
+let stunden = berechneStunden(zeiten);
+rechnung.positionen.push({datum,text,zeiten,stunden,satz});
+render();
+bootstrap.Modal.getInstance(document.getElementById("positionModal")).hide();
+}
+document.getElementById("bk_logo_file").addEventListener("change", function(e){
+
+const file = e.target.files[0];
+if(!file) return;
+
+const reader = new FileReader();
+
+reader.onload = function(){
+    briefkopf.logo = reader.result; // Base64 speichern
+    document.getElementById("bk_logo_preview").src = reader.result;
+    document.getElementById("bk_logo_preview").style.display = "block";
+};
+
+reader.readAsDataURL(file);
+
+});
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

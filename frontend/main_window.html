@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>ZION</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+}
+
+.tabs {
+    display: flex;
+    background: #1f2937;
+}
+
+.tab {
+    padding: 15px 25px;
+    color: white;
+    cursor: pointer;
+    border-right: 1px solid #374151;
+    transition: 0.2s;
+}
+
+.tab:hover {
+    background: #374151;
+}
+
+.tab.active {
+    background: #2563eb;
+}
+
+.content {
+    padding: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="tabs">
+    <div class="tab" onclick="showTab(event,'rechnung')">Rechnung</div>
+    <div class="tab" onclick="showTab(event,'arbeit')">Arbeitstätigkeiten</div>
+    <div class="tab" onclick="showTab(event,'filialen')">Filialen</div>
+    <div class="tab" onclick="showTab(event,'mitarbeiter')">Mitarbeiter</div>
+    <div class="tab" onclick="showTab(event,'schichten')">Schichten</div>
+    <div class="tab" onclick="showTab(event,'teams')">Teams</div>
+    <div class="tab active" onclick="showTab(event,'uebersicht')">Übersicht</div>
+</div>
+
+<div class="content" id="content">
+    <h2>Übersicht</h2>
+</div>
+
+<script>
+function showTab(e, tabName) {
+
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    e.target.classList.add("active");
+
+    const content = document.getElementById("content");
+
+    switch(tabName) {
+
+
+
+        case "filialen":
+        content.innerHTML = `
+            <iframe src="filialen.html"
+                style="width:100%; height:calc(100vh - 60px); border:none;">
+            </iframe>
+        `;
+        break;
+
+
+        case "arbeit":
+    content.innerHTML = `
+        <iframe
+            src="arbeitstaetigkeiten.html"
+            style="width:100%; height:100vh; border:none;">
+        </iframe>
+    `;
+    break;
+
+        case "schichten":
+        content.innerHTML = `
+            <iframe src="schichten.html"
+            style="width:100%; height:calc(100vh - 60px); border:none;">
+            </iframe>
+        `;
+        break;
+
+        case "mitarbeiter":
+    content.innerHTML = `
+        <iframe src="mitarbeiter.html"
+        style="width:100%; height:calc(100vh - 60px); border:none;">
+        </iframe>
+    `;
+    break;
+
+    case "rechnung":
+    content.innerHTML = `
+        <iframe src="rechnung.html"
+        style="width:100%; height:calc(100vh - 60px); border:none;">
+        </iframe>
+    `;
+    break;
+
+        case "teams":
+        content.innerHTML = `
+            <iframe src="teams.html"
+            style="width:100%; height:calc(100vh - 60px); border:none;">
+            </iframe>
+        `;
+        break;
+
+
+        case "uebersicht":
+        content.innerHTML = `
+            <iframe src="uebersicht.html"
+            style="width:100%; height:calc(100vh - 60px); border:none;">
+            </iframe>
+        `;
+        break;
+
+    }
+}
+</script>
+
+</body>
+</html>

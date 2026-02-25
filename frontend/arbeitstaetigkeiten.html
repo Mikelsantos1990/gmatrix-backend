@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Arbeitstätigkeiten</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+    background:#f4f6f9;
+    height:100%;
+}
+
+.sidebar {
+    width:17.5%;
+    background:white;
+    border-right:1px solid #e0e0e0;
+}
+
+.main-content {
+    width:82.5%;
+}
+
+.table thead {
+    background:#1f2937;
+    color:white;
+}
+
+.table td {
+    vertical-align:middle;
+    font-size:14px;
+}
+
+.btn-sidebar {
+    text-align:left;
+}
+
+.modal-body label {
+    font-weight:500;
+    margin-top:8px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container-fluid h-100">
+<div class="d-flex h-100">
+
+<!-- SIDEBAR -->
+<div class="col-3 sidebar p-4 d-flex flex-column">
+
+<h5 class="fw-bold mb-4">Arbeitstätigkeiten</h5>
+
+<button class="btn btn-success btn-sidebar mb-2" onclick="openModal()">➕ Neue Tätigkeit</button>
+<button class="btn btn-primary btn-sidebar mb-2" onclick="editSelected()">✏️ Bearbeiten</button>
+
+<input type="file" id="csvFile" accept=".csv" style="display:none" onchange="importCSV(event)">
+<button class="btn btn-secondary btn-sidebar mb-2" onclick="document.getElementById('csvFile').click()">
+📥 CSV importieren
+</button>
+
+<button class="btn btn-warning btn-sidebar mb-2" onclick="toggleAll()">☑ Alle auswählen</button>
+<button class="btn btn-danger btn-sidebar mb-4" onclick="deleteSelected()">🗑️ Löschen</button>
+
+    <hr class="my-3">
+
+<h6 class="fw-bold">Branchen Filter</h6>
+
+<div id="branchenContainer" class="mb-2"></div>
+
+<div class="d-flex gap-2 mb-3">
+<button class="btn btn-sm btn-success w-50" onclick="setAllBranchen(true)">Alle ein</button>
+<button class="btn btn-sm btn-danger w-50" onclick="setAllBranchen(false)">Alle aus</button>
+</div>
+
+</div>
+
+<!-- MAIN -->
+<div class="main-content p-4">
+
+<div class="mb-3">
+<input type="text" id="filter" class="form-control" placeholder="🔍 Filtern..." onkeyup="loadData()">
+</div>
+
+<div class="table-responsive" style="max-height: calc(100vh - 160px); overflow-y: auto;">
+<table class="table table-bordered table-hover">
+<thead class="table-dark">
+<tr>
+<th style="width:50px">✓</th>
+<th>Branche</th>
+<th>Kategorie</th>
+<th>Berufsname</th>
+<th>Tätigkeit</th>
+<th>Dauer (in h)</th>
+</tr>
+</thead>
+<tbody id="tableBody"></tbody>
+</table>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="editorModal">
+<div class="modal-dialog modal-lg">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title">Arbeitstätigkeit</h5>
+<button class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body" id="modalFields"></div>
+<div class="modal-footer">
+<button class="btn btn-success" onclick="saveEntry()">Speichern</button>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+const felder = [
+"Branche",
+"Kategorie",
+"Berufsname",
+"Tätigkeit",
+"Dauer (in h)"
+];
+
+let editIndex = null;
+let alleDaten = [];
+let branchenStatus = {};
+
+
+async function loadData(){
+
+const res = await fetch("http://127.0.0.1:8000/arbeitstaetigkeiten");
+alleDaten = await res.json();
+
+const filter = document.getElementById("filter").value.toLowerCase();
+const tbody = document.getElementById("tableBody");
+tbody.innerHTML="";
+
+generateBranchenFilter();
+
+let gefiltert = alleDaten.filter(row => {
+
+while(row.length < felder.length) row.push("");
+
+if(filter && !row.join(" ").toLowerCase().includes(filter)) return false;
+
+if(Object.keys(branchenStatus).length){
+if(!branchenStatus[row[0]]) return false;
+}
+
+return true;
+});
+
+gefiltert.sort((a,b)=>{
+
+return a[0].localeCompare(b[0]) ||
+       a[1].localeCompare(b[1]) ||
+       a[2].localeCompare(b[2]) ||
+       a[3].localeCompare(b[3]);
+
+});
+
+gefiltert.forEach((row,index)=>{
+
+tbody.innerHTML += `
+<tr>
+<td onclick="toggleCheck(this)">☐</td>
+${row.map(v=>`<td>${v}</td>`).join("")}
+</tr>`;
+});
+}
+
+function generateBranchenFilter(){
+
+let container = document.getElementById("branchenContainer");
+container.innerHTML="";
+
+let branchen = [...new Set(alleDaten.map(r=>r[0]).filter(b=>b))].sort();
+
+branchen.forEach(branche=>{
+
+if(!(branche in branchenStatus)){
+branchenStatus[branche] = true;
+}
+
+container.innerHTML += `
+<div class="form-check">
+<input class="form-check-input" type="checkbox"
+${branchenStatus[branche] ? "checked":""}
+onchange="toggleBranche('${branche}', this.checked)">
+<label class="form-check-label">${branche}</label>
+</div>
+`;
+});
+}
+
+function toggleBranche(branche, status){
+branchenStatus[branche] = status;
+loadData();
+}
+
+function setAllBranchen(status){
+Object.keys(branchenStatus).forEach(b=>{
+branchenStatus[b] = status;
+});
+loadData();
+}
+
+function toggleCheck(cell){
+cell.innerText = cell.innerText==="☐" ? "✓" : "☐";
+}
+
+function toggleAll(){
+document.querySelectorAll("#tableBody tr td:first-child")
+.forEach(td=> td.innerText="✓");
+}
+
+async function deleteSelected(){
+let rows = document.querySelectorAll("#tableBody tr");
+let indices=[];
+rows.forEach((row,i)=>{
+if(row.children[0].innerText==="✓") indices.push(i);
+});
+for(let i=indices.length-1;i>=0;i--){
+await fetch(`http://127.0.0.1:8000/arbeitstaetigkeiten/${indices[i]}`,{method:"DELETE"});
+}
+loadData();
+}
+
+function openModal(){
+editIndex=null;
+generateModalFields();
+new bootstrap.Modal(document.getElementById("editorModal")).show();
+}
+
+function editSelected(){
+let rows=document.querySelectorAll("#tableBody tr");
+let selected=[];
+rows.forEach((row,i)=>{
+if(row.children[0].innerText==="✓") selected.push(i);
+});
+if(selected.length!==1){ alert("Bitte genau eine Tätigkeit auswählen"); return; }
+editIndex=selected[0];
+generateModalFields(rows[editIndex]);
+new bootstrap.Modal(document.getElementById("editorModal")).show();
+}
+
+function generateModalFields(row=null){
+let container=document.getElementById("modalFields");
+container.innerHTML="";
+felder.forEach((feld,i)=>{
+let value=row ? row.children[i+1].innerText : "";
+container.innerHTML += `
+<label>${feld}</label>
+<input id="f${i}" class="form-control" value="${value}">
+`;
+});
+}
+
+async function saveEntry(){
+let values=[];
+for(let i=0;i<felder.length;i++){
+values.push(document.getElementById(`f${i}`).value);
+}
+if(editIndex!==null){
+await fetch(`http://127.0.0.1:8000/arbeitstaetigkeiten/${editIndex}`,{
+method:"DELETE"});
+}
+await fetch("http://127.0.0.1:8000/arbeitstaetigkeiten",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify(values)
+});
+loadData();
+bootstrap.Modal.getInstance(document.getElementById("editorModal")).hide();
+}
+
+async function importCSV(event) {
+
+const file = event.target.files[0];
+if (!file) return;
+
+const text = await file.text();
+const lines = text.split(/\r?\n/).filter(l => l.trim() !== "");
+
+if (lines.length < 2) {
+alert("CSV enthält keine Daten.");
+return;
+}
+
+const dataRows = lines.slice(1);
+
+for (let line of dataRows) {
+const values = line.split(";").map(v => v.trim());
+
+let row = [
+values[0] || "",
+values[1] || "",
+values[2] || "",
+values[3] || "",
+values[4] || ""
+];
+
+await fetch("http://127.0.0.1:8000/arbeitstaetigkeiten", {
+method: "POST",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify(row)
+});
+}
+
+alert(`${dataRows.length} Tätigkeiten importiert.`);
+loadData();
+}
+
+loadData();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

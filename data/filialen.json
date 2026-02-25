@@ -1,0 +1,506 @@
+[
+    [
+        "101",
+        "EDEKA Ampermoching",
+        "85241",
+        "Ampermoching",
+        "Dachauer Str. 37",
+        "Lukas Meier"
+    ],
+    [
+        "102",
+        "EDEKA Geisenfeld",
+        "85290",
+        "Geisenfeld",
+        "Maximilianstr. 11",
+        "Jonas Schneider"
+    ],
+    [
+        "103",
+        "EDEKA Gundelfingen",
+        "89423",
+        "Gundelfingen",
+        "Georg-Weinhart-Str. 6",
+        "Leon Wagner"
+    ],
+    [
+        "104",
+        "E center Aichach",
+        "86551",
+        "Aichach",
+        "M�nchener Str. 32",
+        "Paul Hoffmann"
+    ],
+    [
+        "105",
+        "EDEKA Augsburg",
+        "86161",
+        "Augsburg",
+        "Hofrat-R�hrer-Str. 11",
+        "Tim Becker"
+    ],
+    [
+        "106",
+        "E center Augsburg-Haunstetten",
+        "86179",
+        "Augsburg-Haunstetten",
+        "Brahmsstr. 2",
+        "Max Fischer"
+    ],
+    [
+        "107",
+        "EDEKA Stadtbergen",
+        "86391",
+        "Stadtbergen",
+        "Benzstr. 12",
+        "Elias Weber"
+    ],
+    [
+        "108",
+        "EDEKA Graben",
+        "86836",
+        "Graben",
+        "Lechfelder Str. 30",
+        "Noah M�ller"
+    ],
+    [
+        "109",
+        "EDEKA Kaufering",
+        "86916",
+        "Kaufering",
+        "Kolpingstr. 2",
+        "Felix Schulz"
+    ],
+    [
+        "110",
+        "E center Landsberg a. Lech",
+        "86899",
+        "Landsberg a. Lech",
+        "Lechwiesenstr. 66",
+        "Moritz Klein"
+    ],
+    [
+        "111",
+        "E center M�nchen",
+        "80999",
+        "M�nchen",
+        "Oertelplatz 13",
+        "David Braun"
+    ],
+    [
+        "112",
+        "EDEKA Gaimersheim",
+        "85080",
+        "Gaimersheim",
+        "Am Steinbruck 4",
+        "Ben Richter"
+    ],
+    [
+        "113",
+        "EDEKA Eggenfelden",
+        "84307",
+        "Eggenfelden",
+        "Schellenbruckplatz 16",
+        "Jan Kr�ger"
+    ],
+    [
+        "114",
+        "EDEKA Regensburg",
+        "93057",
+        "Regensburg",
+        "Berliner Str. 20",
+        "Tom Lehmann"
+    ],
+    [
+        "115",
+        "E center Regensburg",
+        "93053",
+        "Regensburg",
+        "Hornstr. 6",
+        "Erik Wolf"
+    ],
+    [
+        "116",
+        "E center Regensburg (K�WE-Center)",
+        "93051",
+        "Regensburg",
+        "Dr.-Gessler-Str. 45",
+        "Simon Neumann"
+    ],
+    [
+        "117",
+        "EDEKA Schwandorf",
+        "92421",
+        "Schwandorf",
+        "Dachelhoferstr. 73a",
+        "Nico Hartmann"
+    ],
+    [
+        "118",
+        "EDEKA Regensburg",
+        "93049",
+        "Regensburg",
+        "Rennweg 12",
+        "Julian K�nig"
+    ],
+    [
+        "119",
+        "E center Wangen",
+        "88239",
+        "Wangen",
+        "Friedrich-Ebert-Str. 29",
+        "Finn Peters"
+    ],
+    [
+        "120",
+        "EDEKA Petershausen",
+        "85238",
+        "Petershausen",
+        "Mitterfeldstr. 2",
+        "Marcel Brandt"
+    ],
+    [
+        "121",
+        "EDEKA Allershausen",
+        "85391",
+        "Allershausen",
+        "B�rgermeister-Neumeyr-Str. 5",
+        "Kevin Sommer"
+    ],
+    [
+        "122",
+        "EDEKA M�nchen-Flughafen",
+        "85356",
+        "M�nchen-Flughafen",
+        "Flughafen M�nchen Terminal 2",
+        "Daniel Franke"
+    ],
+    [
+        "123",
+        "EDEKA M�nchen",
+        "81371",
+        "M�nchen",
+        "Implerstr. 17",
+        "Tobias Lorenz"
+    ],
+    [
+        "124",
+        "E center Augsburg-Lechhausen",
+        "86167",
+        "Augsburg-Lechhausen",
+        "Neuburger Str. 217",
+        "Adrian Seidel"
+    ],
+    [
+        "125",
+        "E center Meitingen",
+        "86405",
+        "Meitingen",
+        "Via Claudia 1�9",
+        "Patrick Maier"
+    ],
+    [
+        "126",
+        "EDEKA Odelzhausen",
+        "85235",
+        "Odelzhausen",
+        "Rudolf-Diesel-Str. 4",
+        "Sebastian Roth"
+    ],
+    [
+        "127",
+        "E center M�nchen",
+        "81375",
+        "M�nchen",
+        "Guardinistr. 98",
+        "Dennis Vogel"
+    ],
+    [
+        "128",
+        "EDEKA Gro�mehring",
+        "85098",
+        "Gro�mehring",
+        "Ingolst�dter Str. 79",
+        "Florian Busch"
+    ],
+    [
+        "129",
+        "EDEKA Harburg",
+        "86655",
+        "Harburg",
+        "Wemdinger Str. 2",
+        "Manuel Schubert"
+    ],
+    [
+        "130",
+        "EDEKA Schrobenhausen",
+        "86529",
+        "Schrobenhausen",
+        "Augsburger Str. 45",
+        "Philipp B�hm"
+    ],
+    [
+        "131",
+        "EDEKA Ismaning",
+        "85737",
+        "Ismaning",
+        "Camerloher Str. 37",
+        "Stefan Graf"
+    ],
+    [
+        "132",
+        "E center M�nchen",
+        "80933",
+        "M�nchen",
+        "Blodigstr. 6",
+        "Andreas Lenz"
+    ],
+    [
+        "133",
+        "EDEKA Unterschlei�heim",
+        "85716",
+        "Unterschlei�heim",
+        "Morsestr. 1",
+        "Christian Bauer"
+    ],
+    [
+        "134",
+        "EDEKA Unterschlei�heim",
+        "85716",
+        "Unterschlei�heim",
+        "S�dl. Ingolst�dter Str. 55",
+        "Michael Zimmermann"
+    ],
+    [
+        "135",
+        "EDEKA M�nchen",
+        "80469",
+        "M�nchen",
+        "Ickstattstr. 1",
+        "Oliver Krause"
+    ],
+    [
+        "136",
+        "EDEKA M�nchen",
+        "80801",
+        "M�nchen",
+        "Nordendstr. 62",
+        "Markus Engel"
+    ],
+    [
+        "137",
+        "EDEKA M�nchen",
+        "80637",
+        "M�nchen",
+        "Paschstr. 46",
+        "Fabian Arnold"
+    ],
+    [
+        "138",
+        "EDEKA Neukeferloh (Grasbrunn)",
+        "85630",
+        "Neukeferloh (Grasbrunn)",
+        "Bretonischer Ring 2",
+        "Robin Keller"
+    ],
+    [
+        "139",
+        "EDEKA Eichenau",
+        "82223",
+        "Eichenau",
+        "Hauptstr. 55",
+        "Alexander G�nther"
+    ],
+    [
+        "140",
+        "EDEKA M�nchen",
+        "81247",
+        "M�nchen",
+        "Verdistr. 75",
+        "Benjamin Schmid"
+    ],
+    [
+        "141",
+        "E center Alpengro�markt Miesbach",
+        "83714",
+        "Miesbach",
+        "Schlierseer Str. 26+28",
+        "Dominik Wei�"
+    ],
+    [
+        "142",
+        "E center Penzberg",
+        "82377",
+        "Penzberg",
+        "Grube 18",
+        "Ren� Huber"
+    ],
+    [
+        "143",
+        "EDEKA Murnau am Staffelsee",
+        "82418",
+        "Murnau am Staffelsee",
+        "Untermarkt 58",
+        "Sven Reiter"
+    ],
+    [
+        "144",
+        "EDEKA M�nchen",
+        "80335",
+        "M�nchen",
+        "Dachauer Str. 63�65",
+        "Kai Dietrich"
+    ],
+    [
+        "145",
+        "EDEKA Starnberg",
+        "82319",
+        "Starnberg",
+        "Leutstettener Str. 17",
+        "Lars J�ger"
+    ],
+    [
+        "146",
+        "EDEKA Holzkirchen",
+        "83607",
+        "Holzkirchen",
+        "M�nchner Str. 62",
+        "Janik Fuchs"
+    ],
+    [
+        "147",
+        "E center Holzkirchen",
+        "83607",
+        "Holzkirchen",
+        "Rosenheimer Str. 23�25",
+        "Marcel Otto"
+    ],
+    [
+        "148",
+        "EDEKA Sauerlach",
+        "82054",
+        "Sauerlach",
+        "Am Heizwerk 4",
+        "Niklas Sommerfeld"
+    ],
+    [
+        "149",
+        "E center Dillingen",
+        "89407",
+        "Dillingen",
+        "Rudolf-Diesel-Str. 10",
+        "Thorsten Pohl"
+    ],
+    [
+        "150",
+        "E center Donauw�rth",
+        "86609",
+        "Donauw�rth",
+        "Dillinger Str. 22�34",
+        "Matthias Henning"
+    ],
+    [
+        "151",
+        "EDEKA H�chst�dt",
+        "89420",
+        "H�chst�dt",
+        "Lutzinger Str. 4",
+        "Pascal Ebert"
+    ],
+    [
+        "152",
+        "EDEKA Mainburg",
+        "84048",
+        "Mainburg",
+        "Abensberger Str. 48",
+        "Jonathan Beck"
+    ],
+    [
+        "153",
+        "E center Erding",
+        "85435",
+        "Erding",
+        "Johann-Auer-Str.",
+        "Kevin Ullrich"
+    ],
+    [
+        "154",
+        "E center (Sempt) Erding",
+        "85435",
+        "Erding",
+        "Pretzener Str. 10",
+        "Roman Winkler"
+    ],
+    [
+        "155",
+        "EDEKA Hallbergmoos",
+        "85399",
+        "Hallbergmoos",
+        "Theresienstr. 72",
+        "Christoph Haas"
+    ],
+    [
+        "156",
+        "EDEKA Inning/Ammersee",
+        "82266",
+        "Inning/Ammersee",
+        "Herrschinger Str. 35",
+        "Yannick Mohr"
+    ],
+    [
+        "157",
+        "E-xpress Nahversorger Bad Wiessee",
+        "83707",
+        "Bad Wiessee",
+        "M�nchner Str. 52",
+        "Bastian K�hn"
+    ],
+    [
+        "158",
+        "E-xpress Nahversorger Rottach-Egern",
+        "83700",
+        "Rottach-Egern",
+        "S�dl. Hauptstr. 4",
+        "Oliver Heine"
+    ],
+    [
+        "159",
+        "EDEKA Ebenhausen",
+        "82067",
+        "Ebenhausen",
+        "Rodelweg 7",
+        "Moritz Sauer"
+    ],
+    [
+        "160",
+        "E center Garmisch-Partenkirchen",
+        "82467",
+        "Garmisch-Partenkirchen",
+        "Amselstr. 2",
+        "Philipp Klose"
+    ],
+    [
+        "161",
+        "EDEKA Kr�n",
+        "82494",
+        "Kr�n",
+        "Walchenseestr. 27",
+        "Julian Marx"
+    ],
+    [
+        "162",
+        "EDEKA Herrsching am Ammersee",
+        "82211",
+        "Herrsching am Ammersee",
+        "Seestr. 2",
+        "Leonhard Voigt"
+    ],
+    [
+        "163",
+        "E center (Singer) Wasserburg",
+        "83512",
+        "Wasserburg",
+        "Am Aussichtsturm 5",
+        "Daniel Stein"
+    ]
+]

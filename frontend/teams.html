@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Teams</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+    background:#f4f6f9;
+    height:100%;
+}
+
+.sidebar {
+    width:17.5%;            /* 30% kleiner als 25% */
+    background:white;
+    border-right:1px solid #e0e0e0;
+}
+
+.main-content {
+    width:82.5%;
+}
+
+.status-led {
+    font-size:28px;
+    font-weight:bold;
+}
+
+.table thead {
+    background:#1f2937;
+    color:white;
+}
+
+.table td {
+    vertical-align:middle;
+    font-size:14px;
+}
+
+.btn-sidebar {
+    text-align:left;
+}
+
+.modal-body label {
+    font-weight:500;
+    margin-top:8px;
+}
+</style>
+
+</head>
+
+<body class="bg-light">
+
+<div class="container-fluid h-100">
+<div class="d-flex h-100">
+
+<!-- SIDEBAR -->
+<div class="sidebar p-3 shadow-sm d-flex flex-column">
+
+
+<h5 class="fw-bold mb-4">Teams</h5>
+
+<button class="btn btn-danger btn-sidebar mb-2" onclick="clearAll()">
+🗑️ Alle Häkchen entfernen
+</button>
+
+<div class="mt-auto">
+<small class="text-muted" id="statusTeams"></small>
+</div>
+
+</div>
+
+<!-- MAIN -->
+<div class="main-content p-4">
+
+<input class="form-control mb-3"
+       placeholder="🔍 Filtern..."
+       oninput="filterTable(this.value)">
+
+<div class="table-responsive"
+     style="max-height:calc(100vh - 160px); overflow:auto;">
+
+<table class="table table-bordered table-striped" id="teamsTable">
+<thead class="table-dark">
+<tr id="headerRow"></tr>
+</thead>
+<tbody></tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+<script>
+
+const API = "http://127.0.0.1:8000";
+
+let mitarbeiter = [];
+let schichten = [];
+
+/* ================= LOAD ================= */
+async function loadData(){
+
+    const resMit = await fetch(API+"/mitarbeiter");
+    const resSch = await fetch(API+"/schichten");
+
+    mitarbeiter = await resMit.json();
+    schichten = await resSch.json();
+
+    buildTable();
+}
+
+/* ================= BUILD TABLE ================= */
+function buildTable(){
+
+    const header = document.getElementById("headerRow");
+    const tbody = document.querySelector("#teamsTable tbody");
+
+    header.innerHTML="";
+    tbody.innerHTML="";
+
+    // Header
+    header.innerHTML += "<th>Mitarbeiter</th>";
+
+    schichten.forEach(z=>{
+        let label = z[0] + "<br>" +
+                    (z[1]||"") + "-" + (z[2]||"");
+
+        if(z[3] && z[4]){
+            label += "<br>" + z[3] + "-" + z[4];
+        }
+
+        label += "<br>" + (z[5]||"") + "h";
+
+        header.innerHTML += `<th>${label}</th>`;
+    });
+
+    // Rows
+    mitarbeiter.forEach((m,i)=>{
+
+        const vor = m[0];
+        const nach = m[1];
+        const stunden = m[7] || "";
+
+        const name = vor + " " + nach + ", " + stunden + "h";
+
+        let schichtListe = m[10] || [];
+
+        let row = `<tr data-index="${i}">
+                   <td>${name}</td>`;
+
+        schichten.forEach(z=>{
+            const checked = schichtListe.includes(z[0]);
+            row += `<td onclick="toggleCell(${i},'${z[0]}')">
+                    ${checked ? "✓" : "☐"}
+                    </td>`;
+        });
+
+        row += "</tr>";
+        tbody.innerHTML += row;
+    });
+
+    document.getElementById("statusTeams").innerText =
+        mitarbeiter.length + " Mitarbeiter geladen";
+}
+
+/* ================= TOGGLE ================= */
+async function toggleCell(index, teamName){
+
+    if(!mitarbeiter[index][10])
+        mitarbeiter[index][10] = [];
+
+    let arr = mitarbeiter[index][10];
+
+    if(arr.includes(teamName))
+        arr = arr.filter(s=>s!==teamName);
+    else
+        arr.push(teamName);
+
+    mitarbeiter[index][10] = arr;
+
+    await fetch(API+"/mitarbeiter/"+index,{
+        method:"PUT",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(mitarbeiter[index])
+    });
+
+    buildTable();
+}
+
+/* ================= FILTER ================= */
+function filterTable(text){
+    text=text.toLowerCase();
+
+    document.querySelectorAll("#teamsTable tbody tr")
+        .forEach(r=>{
+            r.style.display =
+                r.innerText.toLowerCase().includes(text)
+                ? ""
+                : "none";
+        });
+}
+
+/* ================= CLEAR ================= */
+async function clearAll(){
+
+    if(!confirm("Alle Schichten entfernen?")) return;
+
+    for(let i=0;i<mitarbeiter.length;i++){
+        mitarbeiter[i][10] = [];
+        await fetch(API+"/mitarbeiter/"+i,{
+            method:"PUT",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(mitarbeiter[i])
+        });
+    }
+
+    buildTable();
+}
+
+loadData();
+
+</script>
+</body>
+</html>

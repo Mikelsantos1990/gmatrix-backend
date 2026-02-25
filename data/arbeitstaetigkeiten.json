@@ -1,0 +1,1031 @@
+[
+    [
+        "Chemie",
+        "Wartung",
+        "Techniker",
+        "Anlage warten",
+        "8"
+    ],
+    [
+        "Service",
+        "Reinigung",
+        "Reinigungskraft",
+        "B�ro reinigen",
+        "4"
+    ],
+    [
+        "Pharma",
+        "Analyse",
+        "Laborant",
+        "Analyse durchf�hren",
+        "6"
+    ],
+    [
+        "IT",
+        "Entwicklung",
+        "Softwareentwickler",
+        "Code implementieren",
+        "7"
+    ],
+    [
+        "IT",
+        "Wartung",
+        "Systemadministrator",
+        "Server warten",
+        "5"
+    ],
+    [
+        "Industrie",
+        "Reparatur",
+        "Mechatroniker",
+        "Maschine reparieren",
+        "6"
+    ],
+    [
+        "Industrie",
+        "Produktion",
+        "Produktionsmitarbeiter",
+        "Bauteile montieren",
+        "8"
+    ],
+    [
+        "Logistik",
+        "Transport",
+        "Lagermitarbeiter",
+        "Waren kommissionieren",
+        "7"
+    ],
+    [
+        "Logistik",
+        "Transport",
+        "Staplerfahrer",
+        "Palette transportieren",
+        "6"
+    ],
+    [
+        "Bauwesen",
+        "Installation",
+        "Elektriker",
+        "Kabel verlegen",
+        "8"
+    ],
+    [
+        "Bauwesen",
+        "Produktion",
+        "Maurer",
+        "Mauer errichten",
+        "8"
+    ],
+    [
+        "Gesundheit",
+        "Betreuung",
+        "Pflegefachkraft",
+        "Patient betreuen",
+        "8"
+    ],
+    [
+        "Gesundheit",
+        "Analyse",
+        "Arzt",
+        "Untersuchung durchf�hren",
+        "6"
+    ],
+    [
+        "Handel",
+        "Beratung",
+        "Verk�ufer",
+        "Kunden beraten",
+        "8"
+    ],
+    [
+        "Handel",
+        "Verwaltung",
+        "Kassierer",
+        "Kassiervorgang durchf�hren",
+        "6"
+    ],
+    [
+        "Gastronomie",
+        "Produktion",
+        "Koch",
+        "Speisen zubereiten",
+        "8"
+    ],
+    [
+        "Gastronomie",
+        "Betreuung",
+        "Servicekraft",
+        "G�ste bedienen",
+        "6"
+    ],
+    [
+        "Automobil",
+        "Wartung",
+        "KFZ-Mechatroniker",
+        "Fahrzeug warten",
+        "7"
+    ],
+    [
+        "Automobil",
+        "Produktion",
+        "Lackierer",
+        "Karosserie lackieren",
+        "8"
+    ],
+    [
+        "Finanzen",
+        "Verwaltung",
+        "Buchhalter",
+        "Rechnung pr�fen",
+        "5"
+    ],
+    [
+        "Finanzen",
+        "Analyse",
+        "Controller",
+        "Budget analysieren",
+        "6"
+    ],
+    [
+        "Bildung",
+        "Betreuung",
+        "Lehrer",
+        "Unterricht halten",
+        "6"
+    ],
+    [
+        "Bildung",
+        "Betreuung",
+        "Erzieher",
+        "Kinder betreuen",
+        "8"
+    ],
+    [
+        "Sicherheit",
+        "Sicherheit",
+        "Sicherheitsdienst",
+        "Objekt �berwachen",
+        "12"
+    ],
+    [
+        "Marketing",
+        "Planung",
+        "Marketingmanager",
+        "Kampagne planen",
+        "6"
+    ],
+    [
+        "Marketing",
+        "Produktion",
+        "Content Creator",
+        "Inhalt erstellen",
+        "5"
+    ],
+    [
+        "Medien",
+        "Produktion",
+        "Redakteur",
+        "Artikel schreiben",
+        "6"
+    ],
+    [
+        "Medien",
+        "Produktion",
+        "Grafikdesigner",
+        "Layout gestalten",
+        "7"
+    ],
+    [
+        "Tourismus",
+        "Beratung",
+        "Reiseberater",
+        "Reise planen",
+        "5"
+    ],
+    [
+        "Tourismus",
+        "Betreuung",
+        "Hotelfachkraft",
+        "G�ste betreuen",
+        "8"
+    ],
+    [
+        "Landwirtschaft",
+        "Produktion",
+        "Landwirt",
+        "Feld bearbeiten",
+        "9"
+    ],
+    [
+        "Energie",
+        "Pr�fung",
+        "Elektroniker",
+        "Anlage pr�fen",
+        "7"
+    ],
+    [
+        "Energie",
+        "Wartung",
+        "Servicetechniker",
+        "Windrad warten",
+        "10"
+    ],
+    [
+        "Telekommunikation",
+        "Pr�fung",
+        "Techniker",
+        "Leitung pr�fen",
+        "6"
+    ],
+    [
+        "Versicherung",
+        "Verwaltung",
+        "Sachbearbeiter",
+        "Schaden bearbeiten",
+        "5"
+    ],
+    [
+        "Versicherung",
+        "Beratung",
+        "Berater",
+        "Kunden beraten",
+        "6"
+    ],
+    [
+        "�ffentlicher Dienst",
+        "Verwaltung",
+        "Sachbearbeiter",
+        "Antrag pr�fen",
+        "6"
+    ],
+    [
+        "�ffentlicher Dienst",
+        "Sicherheit",
+        "Polizist",
+        "Streife fahren",
+        "10"
+    ],
+    [
+        "Transport",
+        "Transport",
+        "Busfahrer",
+        "Linie fahren",
+        "8"
+    ],
+    [
+        "Transport",
+        "Transport",
+        "Lokf�hrer",
+        "Zug steuern",
+        "9"
+    ],
+    [
+        "Chemie",
+        "Analyse",
+        "Laborant",
+        "Probe auswerten",
+        "6"
+    ],
+    [
+        "Chemie",
+        "Optimierung",
+        "Ingenieur",
+        "Prozess optimieren",
+        "7"
+    ],
+    [
+        "Pharma",
+        "Produktion",
+        "Produktionsmitarbeiter",
+        "Medikament herstellen",
+        "8"
+    ],
+    [
+        "Pharma",
+        "Pr�fung",
+        "Qualit�tsmanager",
+        "Charge pr�fen",
+        "6"
+    ],
+    [
+        "IT",
+        "Analyse",
+        "Data Analyst",
+        "Daten analysieren",
+        "6"
+    ],
+    [
+        "IT",
+        "Verwaltung",
+        "IT-Support",
+        "Ticket bearbeiten",
+        "5"
+    ],
+    [
+        "Industrie",
+        "Produktion",
+        "Schwei�er",
+        "Bauteile schwei�en",
+        "8"
+    ],
+    [
+        "Industrie",
+        "Pr�fung",
+        "Qualit�tspr�fer",
+        "Produkt kontrollieren",
+        "6"
+    ],
+    [
+        "Logistik",
+        "Planung",
+        "Disponent",
+        "Tour planen",
+        "6"
+    ],
+    [
+        "Logistik",
+        "Organisation",
+        "Versandleiter",
+        "Versand koordinieren",
+        "7"
+    ],
+    [
+        "Bauwesen",
+        "Organisation",
+        "Bauleiter",
+        "Baustelle koordinieren",
+        "9"
+    ],
+    [
+        "Bauwesen",
+        "Produktion",
+        "Zimmerer",
+        "Dachstuhl errichten",
+        "8"
+    ],
+    [
+        "Gesundheit",
+        "Betreuung",
+        "Physiotherapeut",
+        "Therapie durchf�hren",
+        "7"
+    ],
+    [
+        "Gesundheit",
+        "Verwaltung",
+        "Apotheker",
+        "Medikament ausgeben",
+        "6"
+    ],
+    [
+        "Handel",
+        "Organisation",
+        "Filialleiter",
+        "Team f�hren",
+        "8"
+    ],
+    [
+        "Handel",
+        "Verwaltung",
+        "Eink�ufer",
+        "Ware bestellen",
+        "5"
+    ],
+    [
+        "Gastronomie",
+        "Produktion",
+        "Barkeeper",
+        "Getr�nke zubereiten",
+        "7"
+    ],
+    [
+        "Gastronomie",
+        "Produktion",
+        "K�chenhilfe",
+        "Zutaten vorbereiten",
+        "6"
+    ],
+    [
+        "Automobil",
+        "Entwicklung",
+        "Ingenieur",
+        "Motor entwickeln",
+        "8"
+    ],
+    [
+        "Automobil",
+        "Verwaltung",
+        "Serviceberater",
+        "Kundenauftrag annehmen",
+        "6"
+    ],
+    [
+        "Finanzen",
+        "Beratung",
+        "Finanzberater",
+        "Anlage beraten",
+        "7"
+    ],
+    [
+        "Finanzen",
+        "Verwaltung",
+        "Steuerberater",
+        "Steuererkl�rung erstellen",
+        "8"
+    ],
+    [
+        "Bildung",
+        "Betreuung",
+        "Dozent",
+        "Vorlesung halten",
+        "5"
+    ],
+    [
+        "Bildung",
+        "Betreuung",
+        "Schulsozialarbeiter",
+        "Sch�ler beraten",
+        "6"
+    ],
+    [
+        "Sicherheit",
+        "Pr�fung",
+        "Brandschutzbeauftragter",
+        "Kontrolle durchf�hren",
+        "5"
+    ],
+    [
+        "Marketing",
+        "Optimierung",
+        "SEO-Manager",
+        "Website optimieren",
+        "6"
+    ],
+    [
+        "Marketing",
+        "Planung",
+        "Social Media Manager",
+        "Beitr�ge planen",
+        "5"
+    ],
+    [
+        "Medien",
+        "Produktion",
+        "Videograf",
+        "Video produzieren",
+        "8"
+    ],
+    [
+        "Medien",
+        "Produktion",
+        "Fotograf",
+        "Shooting durchf�hren",
+        "6"
+    ],
+    [
+        "Tourismus",
+        "Betreuung",
+        "Reiseleiter",
+        "Tour begleiten",
+        "10"
+    ],
+    [
+        "Tourismus",
+        "Organisation",
+        "Eventmanager",
+        "Event organisieren",
+        "8"
+    ],
+    [
+        "Landwirtschaft",
+        "Betreuung",
+        "Tierpfleger",
+        "Tiere versorgen",
+        "8"
+    ],
+    [
+        "Energie",
+        "Wartung",
+        "Netztechniker",
+        "Netz warten",
+        "7"
+    ],
+    [
+        "Telekommunikation",
+        "Planung",
+        "Netzplaner",
+        "Infrastruktur planen",
+        "6"
+    ],
+    [
+        "Versicherung",
+        "Analyse",
+        "Underwriter",
+        "Risiko bewerten",
+        "7"
+    ],
+    [
+        "�ffentlicher Dienst",
+        "Verwaltung",
+        "Verwaltungsfachangestellter",
+        "Akten bearbeiten",
+        "6"
+    ],
+    [
+        "�ffentlicher Dienst",
+        "Verwaltung",
+        "Richter",
+        "Urteil sprechen",
+        "7"
+    ],
+    [
+        "Transport",
+        "Organisation",
+        "Speditionskaufmann",
+        "Transport organisieren",
+        "6"
+    ],
+    [
+        "Transport",
+        "Transport",
+        "Kurierfahrer",
+        "Pakete zustellen",
+        "8"
+    ],
+    [
+        "Chemie",
+        "Organisation",
+        "Produktionsleiter",
+        "Produktion �berwachen",
+        "9"
+    ],
+    [
+        "Pharma",
+        "Analyse",
+        "Forschungsingenieur",
+        "Studie durchf�hren",
+        "8"
+    ],
+    [
+        "IT",
+        "Installation",
+        "Cloud Engineer",
+        "Cloud konfigurieren",
+        "7"
+    ],
+    [
+        "Industrie",
+        "Wartung",
+        "Instandhalter",
+        "Anlage inspizieren",
+        "6"
+    ],
+    [
+        "Logistik",
+        "Optimierung",
+        "Supply Chain Manager",
+        "Lieferkette optimieren",
+        "8"
+    ],
+    [
+        "Bauwesen",
+        "Produktion",
+        "Tiefbauer",
+        "Graben ausheben",
+        "9"
+    ],
+    [
+        "Gesundheit",
+        "Betreuung",
+        "Psychologe",
+        "Beratung durchf�hren",
+        "6"
+    ],
+    [
+        "Handel",
+        "Optimierung",
+        "Merchandiser",
+        "Ware pr�sentieren",
+        "5"
+    ],
+    [
+        "Gastronomie",
+        "Organisation",
+        "Restaurantleiter",
+        "Betrieb leiten",
+        "9"
+    ],
+    [
+        "Automobil",
+        "Pr�fung",
+        "Testfahrer",
+        "Fahrzeug testen",
+        "7"
+    ],
+    [
+        "Finanzen",
+        "Pr�fung",
+        "Auditor",
+        "Pr�fung durchf�hren",
+        "6"
+    ],
+    [
+        "Bildung",
+        "Schulung",
+        "Ausbilder",
+        "Azubi anleiten",
+        "7"
+    ],
+    [
+        "Sicherheit",
+        "Sicherheit",
+        "Notfallsanit�ter",
+        "Einsatz fahren",
+        "12"
+    ],
+    [
+        "Marketing",
+        "Entwicklung",
+        "Produktmanager",
+        "Produkt entwickeln",
+        "8"
+    ],
+    [
+        "Medien",
+        "Produktion",
+        "Sprecher",
+        "Audio aufnehmen",
+        "4"
+    ],
+    [
+        "Tourismus",
+        "Organisation",
+        "Hotelmanager",
+        "Hotel leiten",
+        "9"
+    ],
+    [
+        "Energie",
+        "Organisation",
+        "Projektleiter",
+        "Projekt koordinieren",
+        "8"
+    ],
+    [
+        "Transport",
+        "Sicherheit",
+        "Fluglotse",
+        "Flugverkehr �berwachen",
+        "10"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Servicetechniker",
+        "Kaffeemaschine warten",
+        "6"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Servicetechniker",
+        "Kaffeemaschine reparieren",
+        "5"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Fehlerdiagnose durchf�hren",
+        "4"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Wasserfilter tauschen",
+        "2"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Wasserfilter ausbauen",
+        "2"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Wasserfilter einbauen",
+        "2"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Kalkfilter ersetzen",
+        "2"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Br�hgruppe ausbauen",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Br�hgruppe reinigen",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Br�hgruppe einbauen",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Mechatroniker",
+        "Pumpe austauschen",
+        "4"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Elektroniker",
+        "Steuerplatine pr�fen",
+        "5"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Elektroniker",
+        "Leitung pr�fen",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Servicetechniker",
+        "Dichtungen austauschen",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Servicetechniker",
+        "Milchsystem reinigen",
+        "2"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Mahlwerk einstellen",
+        "2"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Mahlwerk austauschen",
+        "4"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Bohnenbeh�lter reinigen",
+        "2"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Wassertank reinigen",
+        "2"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Wassertank austauschen",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Heizelement pr�fen",
+        "4"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Heizelement austauschen",
+        "5"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Servicetechniker",
+        "Thermoblock entkalken",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Servicetechniker",
+        "Thermoblock ersetzen",
+        "6"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Drucksystem pr�fen",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Schlauchverbindung tauschen",
+        "2"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Ventil austauschen",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Magnetventil pr�fen",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Magnetventil ersetzen",
+        "4"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Display austauschen",
+        "4"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Elektroniker",
+        "Software-Update durchf�hren",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Servicetechniker",
+        "Sensor kalibrieren",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Temperatursensor tauschen",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Durchflussmesser ersetzen",
+        "4"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Servicetechniker",
+        "Kaffeeauslauf reinigen",
+        "2"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Kaffeeauslauf austauschen",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Milchschlauch tauschen",
+        "2"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Milchaufsch�umer reinigen",
+        "2"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Milchaufsch�umer austauschen",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Servicetechniker",
+        "Sicherheitspr�fung durchf�hren",
+        "4"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Servicetechniker",
+        "Probelauf durchf�hren",
+        "2"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Geh�use ausbauen",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Geh�use montieren",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Netzteil pr�fen",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Elektroniker",
+        "Netzteil austauschen",
+        "4"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Kabelsatz tauschen",
+        "3"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Siebtr�ger reinigen",
+        "2"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Siebtr�gerdichtung wechseln",
+        "2"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Techniker",
+        "Abtropfschale reinigen",
+        "1"
+    ],
+    [
+        "Gro�- und Einzelhandel",
+        "Kaffeemaschinen",
+        "Servicetechniker",
+        "Komplettwartung durchf�hren",
+        "8"
+    ]
+]

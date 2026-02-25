@@ -1,0 +1,211 @@
+[
+    {
+        "kalenderwoche": 5,
+        "jahr": 2026,
+        "tage": {
+            "Montag (26.01.2026)": "26.01.2026",
+            "Dienstag (27.01.2026)": "27.01.2026",
+            "Mittwoch (28.01.2026)": "28.01.2026",
+            "Donnerstag (29.01.2026)": "29.01.2026",
+            "Freitag (30.01.2026)": "30.01.2026",
+            "Samstag (31.01.2026)": "31.01.2026",
+            "Sonntag (01.02.2026)": "01.02.2026"
+        },
+        "uebersicht": {
+            "mode": "schicht",
+            "data": [
+                {
+                    "filiale": "101",
+                    "tage": {
+                        "Montag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": [
+                                "Martin Müller, 10h/w",
+                                "Lukas Schneider, 40h/w",
+                                "Jonas Becker, 20h/w",
+                                "Michael Hofmann, 20h/w"
+                            ]
+                        },
+                        "Dienstag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Mittwoch": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Donnerstag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Freitag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Samstag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Sonntag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        }
+                    }
+                },
+                {
+                    "filiale": "102",
+                    "tage": {
+                        "Montag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Dienstag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Mittwoch": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": [
+                                "Daniel Lang, 40h/w",
+                                "Thomas Denk, 40h/w",
+                                "Thomas Pantschenko, 40h/w"
+                            ]
+                        },
+                        "Donnerstag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Freitag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Samstag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Sonntag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        }
+                    }
+                },
+                {
+                    "filiale": "103",
+                    "tage": {
+                        "Montag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Dienstag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Mittwoch": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Donnerstag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Freitag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Samstag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Sonntag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        }
+                    }
+                },
+                {
+                    "filiale": "115",
+                    "tage": {
+                        "Montag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": [
+                                "Daniel Lang, 40h/w",
+                                "Natalia Lotz, 40h/w",
+                                "Brigitte Winkler, 40h/w"
+                            ]
+                        },
+                        "Dienstag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Mittwoch": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": [
+                                "Franz Käs, 40h/w",
+                                "Idris Safa, 40h/w"
+                            ]
+                        },
+                        "Donnerstag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": [
+                                "Sebastian Schäfer, 20h/w",
+                                "Thomas Bauer, 50h/w",
+                                "Kai Sommer, 25h/w"
+                            ]
+                        },
+                        "Freitag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": [
+                                "Martin Müller, 10h/w",
+                                "Lukas Schneider, 40h/w",
+                                "Jonas Becker, 20h/w",
+                                "Michael Hofmann, 20h/w"
+                            ]
+                        },
+                        "Samstag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": []
+                        },
+                        "Sonntag": {
+                            "schicht": "",
+                            "notiz": "",
+                            "mitarbeiter": [
+                                "Martin Müller, 10h/w",
+                                "Lukas Schneider, 40h/w",
+                                "Tobias Keller, 20h/w",
+                                "Lars Bickler, 40h/w",
+                                "Alexander Brandes, 40h/w"
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    }
+]

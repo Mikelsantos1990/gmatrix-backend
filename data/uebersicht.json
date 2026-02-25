@@ -1,0 +1,196 @@
+{
+    "mode": "schicht",
+    "data": [
+        {
+            "filiale": "101",
+            "tage": {
+                "Montag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": [
+                        "Martin Müller, 10h/w",
+                        "Lukas Schneider, 40h/w",
+                        "Jonas Becker, 20h/w",
+                        "Michael Hofmann, 20h/w"
+                    ]
+                },
+                "Dienstag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Mittwoch": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Donnerstag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Freitag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Samstag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Sonntag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                }
+            }
+        },
+        {
+            "filiale": "102",
+            "tage": {
+                "Montag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Dienstag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Mittwoch": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": [
+                        "Daniel Lang, 40h/w",
+                        "Thomas Denk, 40h/w",
+                        "Thomas Pantschenko, 40h/w"
+                    ]
+                },
+                "Donnerstag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Freitag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Samstag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Sonntag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                }
+            }
+        },
+        {
+            "filiale": "103",
+            "tage": {
+                "Montag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Dienstag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Mittwoch": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Donnerstag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Freitag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Samstag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Sonntag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                }
+            }
+        },
+        {
+            "filiale": "115",
+            "tage": {
+                "Montag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": [
+                        "Daniel Lang, 40h/w",
+                        "Natalia Lotz, 40h/w",
+                        "Brigitte Winkler, 40h/w"
+                    ]
+                },
+                "Dienstag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Mittwoch": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": [
+                        "Franz Käs, 40h/w",
+                        "Idris Safa, 40h/w"
+                    ]
+                },
+                "Donnerstag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": [
+                        "Sebastian Schäfer, 20h/w",
+                        "Thomas Bauer, 50h/w",
+                        "Kai Sommer, 25h/w"
+                    ]
+                },
+                "Freitag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": [
+                        "Martin Müller, 10h/w",
+                        "Lukas Schneider, 40h/w",
+                        "Jonas Becker, 20h/w",
+                        "Michael Hofmann, 20h/w"
+                    ]
+                },
+                "Samstag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": []
+                },
+                "Sonntag": {
+                    "schicht": "",
+                    "notiz": "",
+                    "mitarbeiter": [
+                        "Martin Müller, 10h/w",
+                        "Lukas Schneider, 40h/w",
+                        "Tobias Keller, 20h/w",
+                        "Lars Bickler, 40h/w",
+                        "Alexander Brandes, 40h/w"
+                    ]
+                }
+            }
+        }
+    ]
+}

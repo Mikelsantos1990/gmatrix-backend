@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>Übersicht</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+    background:#f4f6f9;
+    height:100%;
+}
+
+.sidebar {
+    width:17.5%;            /* 30% kleiner als 25% */
+    background:white;
+    border-right:1px solid #e0e0e0;
+}
+
+.main-content {
+    width:82.5%;
+}
+
+.status-led {
+    font-size:28px;
+    font-weight:bold;
+}
+
+.table thead {
+    background:#1f2937;
+    color:white;
+}
+
+.table td {
+    vertical-align:middle;
+    font-size:14px;
+}
+
+.btn-sidebar {
+    text-align:left;
+}
+
+.modal-body label {
+    font-weight:500;
+    margin-top:8px;
+}
+
+.btn-sidebar {
+    text-align:left;
+}
+</style>
+</head>
+
+<body>
+<div class="container-fluid">
+<div class="row vh-100">
+
+<!-- ===================== SIDEBAR ===================== -->
+<div class="col-3 sidebar p-4 d-flex flex-column">
+
+<h5 class="fw-bold mb-3">Übersicht</h5>
+
+<!-- MODUS -->
+<div class="mb-3">
+    <div class="form-check">
+        <input class="form-check-input"
+               type="radio"
+               name="mode"
+               id="modeSchicht"
+               value="schicht"
+               checked>
+        <label class="form-check-label">Schichtsystem</label>
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input"
+               type="radio"
+               name="mode"
+               id="modeStunden"
+               value="stunden">
+        <label class="form-check-label">Stundenerfassung</label>
+    </div>
+</div>
+
+<button class="btn btn-success btn-sidebar mb-2" onclick="addRow()">
+➕ Neue Zeile Planung
+</button>
+
+<button class="btn btn-secondary btn-sidebar mb-2" onclick="generateSmartPlan()">
+🧠 Schichtplan erstellen
+</button>
+
+<button class="btn btn-primary btn-sidebar mb-2" onclick="saveOverview()">
+💾 Übersicht Speichern
+</button>
+
+<button class="btn btn-outline-secondary btn-sidebar mb-2" onclick="triggerFileInput()">
+📂 KW in Übersicht laden
+</button>
+
+<input type="file"
+       id="kwFileInput"
+       accept=".json"
+       style="display:none"
+       onchange="handleKWFile(this)">
+
+
+<button class="btn btn-danger btn-sidebar mb-2" onclick="deleteSelectedRow()">
+🧹 Einzelne Zeile löschen
+</button>
+
+<button class="btn btn-danger btn-sidebar mb-3" onclick="clearOverview()">
+ 🗑 Alles löschen
+</button>
+
+<hr>
+
+<h6 class="fw-bold mt-3">Generiere Kalenderwochen</h6>
+
+<button class="btn btn-success btn-sidebar mb-2" onclick="saveCalendarWeek()">
+📅 Kalenderwoche generieren
+</button>
+
+<button class="btn btn-primary btn-sidebar mb-2" onclick="exportCalendarWeek()">
+💾 KW im Pfad speichern
+</button>
+
+<button class="btn btn-outline-secondary btn-sidebar" onclick="loadCalendarWeek()">
+📂 KW aus Pfad laden
+</button>
+
+<div class="mt-auto">
+<small id="statusOverview" class="text-muted">Bereit.</small>
+</div>
+
+</div>
+
+<!-- ===================== MAIN ===================== -->
+<div class="col-9 p-4">
+
+<table class="table table-bordered align-middle" id="overviewTable">
+
+<thead class="table-light">
+<tr>
+<th style="min-width:220px;">Filiale</th>
+<th>Montag</th>
+<th>Dienstag</th>
+<th>Mittwoch</th>
+<th>Donnerstag</th>
+<th>Freitag</th>
+<th>Samstag</th>
+<th>Sonntag</th>
+</tr>
+</thead>
+
+<tbody></tbody>
+
+</table>
+
+</div>
+
+</div>
+</div>
+
+
+
+
+<script>
+const API = "http://127.0.0.1:8000";
+
+const tage = [
+    "Montag","Dienstag","Mittwoch",
+    "Donnerstag","Freitag","Samstag","Sonntag"
+];
+
+let selectedRow = null;
+
+// =====================================================
+// INIT
+// =====================================================
+
+document.addEventListener("DOMContentLoaded", async () => {
+    await loadOverview();
+});
+
+// =====================================================
+// STATUS
+// =====================================================
+
+function setStatus(text, type="text-muted") {
+    const el = document.getElementById("statusOverview");
+    el.className = type;
+    el.textContent = text;
+}
+
+
+function triggerFileInput() {
+    document.getElementById("kwFileInput").click();
+}
+
+// =====================================================
+// API
+// =====================================================
+
+async function fetchData(endpoint) {
+    const res = await fetch(`${API}/${endpoint}`);
+    return await res.json();
+}
+
+// =====================================================
+// ROW ERSTELLEN
+// =====================================================
+
+async function addRow() {
+
+    const filialen = await fetchData("filialen");
+    const schichten = await fetchData("schichten");
+    const mitarbeiter = await fetchData("mitarbeiter");
+
+    const tbody = document.querySelector("#overviewTable tbody");
+    const tr = document.createElement("tr");
+
+    // Zeile auswählbar machen
+    tr.addEventListener("click", () => {
+        document.querySelectorAll("#overviewTable tbody tr")
+            .forEach(r => r.classList.remove("table-primary"));
+
+        tr.classList.add("table-primary");
+        selectedRow = tr;
+    });
+
+// ================= FILIALE =================
+
+const filialeTd = document.createElement("td");
+const filialeSelect = document.createElement("select");
+filialeSelect.className = "form-select";
+
+filialeSelect.innerHTML = `<option value="">Filiale wählen</option>`;
+
+filialen.forEach(f => {
+
+    const nummer = f[0];
+    const name = f[1];
+    const plz = f[2] || "";
+    const ort = f[3] || "";
+    const strasse = f[4] || "";
+    const marktleiter = f[5] || "";
+
+    const option = document.createElement("option");
+
+    // interner Wert
+    option.value = nummer;
+
+    // 🔥 Alles mit Komma aufgelistet
+    option.textContent =
+        `${nummer} - ${name}, ${strasse}, ${ort} ${plz}, ${marktleiter}`;
+
+    filialeSelect.appendChild(option);
+});
+
+filialeTd.appendChild(filialeSelect);
+tr.appendChild(filialeTd);
+
+
+    // ================= TAGE =================
+
+    tage.forEach(tag => {
+
+        const td = document.createElement("td");
+
+        const schichtSelect = document.createElement("select");
+        schichtSelect.className = "form-select form-select-sm mb-1";
+        schichtSelect.innerHTML = `<option value="">Schicht wählen</option>`;
+
+        const textarea = document.createElement("textarea");
+        textarea.className = "form-control form-control-sm mb-1";
+        textarea.rows = 2;
+
+        const mitarbeiterContainer = document.createElement("div");
+        mitarbeiterContainer.className = "mt-1";
+
+        td.appendChild(schichtSelect);
+        td.appendChild(textarea);
+        td.appendChild(mitarbeiterContainer);
+        tr.appendChild(td);
+
+        // 🔥 SCHICHTEN LADEN (Array-Format)
+        schichten.forEach(s => {
+            schichtSelect.innerHTML +=
+                `<option value="${s[0]}">
+                    ${s[0]} (${s[1]}-${s[2]})
+                 </option>`;
+        });
+
+        // =====================================================
+        // WENN SCHICHT GEWÄHLT WIRD → MITARBEITER ANZEIGEN
+        // =====================================================
+
+        schichtSelect.addEventListener("change", () => {
+
+    mitarbeiterContainer.innerHTML = "";
+
+    const selectedSchicht = schichtSelect.value.trim();
+    if (!selectedSchicht) return;
+
+    mitarbeiter.forEach(m => {
+
+        const vorname = m[0];
+        const nachname = m[1];
+        const wochenstunden = m[7];     // Woche (h)
+        const schichtenArray = m[10] || [];
+
+        if (schichtenArray.includes(selectedSchicht)) {
+
+            const label = document.createElement("span");
+            label.className = "badge bg-primary me-1 mb-1";
+
+            label.textContent =
+                `${vorname} ${nachname}, ${wochenstunden}h/W`;
+
+            mitarbeiterContainer.appendChild(label);
+        }
+    });
+
+});
+
+    });
+
+    tbody.appendChild(tr);
+}
+
+
+
+
+
+// =====================================================
+// ÜBERSICHT SPEICHERN (STABIL & PROFESSIONELL)
+// =====================================================
+
+async function saveOverview() {
+
+    const saveBtn = document.querySelector("button[onclick='saveOverview()']");
+    saveBtn.disabled = true;
+    saveBtn.innerHTML = "Speichern...";
+
+    try {
+
+        const rows = document.querySelectorAll("#overviewTable tbody tr");
+        const result = [];
+
+        rows.forEach(row => {
+
+            const filialeSelect = row.children[0].querySelector("select");
+
+
+
+            const filiale = filialeSelect ? filialeSelect.value : "";
+
+            if (!filiale) return;
+
+            const tageData = {};
+
+            tage.forEach((tag, i) => {
+
+                const cell = row.children[i + 1];
+
+                const schicht =
+                    cell.querySelector("select")?.value || "";
+
+                const notiz =
+                    cell.querySelector("textarea")?.value || "";
+
+                const mitarbeiter = Array.from(
+                    cell.querySelectorAll(".badge")
+                ).map(el => el.textContent);
+
+                tageData[tag] = {
+                    schicht: schicht,
+                    notiz: notiz,
+                    mitarbeiter: mitarbeiter
+                };
+            });
+
+            result.push({
+                filiale: filiale,
+                tage: tageData
+            });
+
+        });
+
+        const mode =
+            document.querySelector("input[name='mode']:checked").value;
+
+        const response = await fetch(`${API}/uebersicht`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                mode: mode,
+                data: result
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("Speichern fehlgeschlagen");
+        }
+
+        setStatus("Übersicht erfolgreich gespeichert ✔", "text-success");
+
+    } catch (error) {
+
+        console.error(error);
+        setStatus("Fehler beim Speichern ❌", "text-danger");
+
+    } finally {
+
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = "💾 Übersicht Speichern";
+
+    }
+}
+
+
+// =====================================================
+// KW IN ÜBERSICHT LADEN (MIT DATUM IM HEADER)
+// =====================================================
+
+async function loadOverview() {
+
+    try {
+
+        const res = await fetch(`${API}/uebersicht`);
+
+        if (!res.ok) {
+            throw new Error("Keine gespeicherte Übersicht gefunden");
+        }
+
+        const data = await res.json();
+
+        clearOverview();
+
+        // 🔥 WENN tage vorhanden → Header aktualisieren
+        if (data.tage) {
+            updateTableHeader();
+
+        }
+
+        await renderOverview(data.uebersicht || data.data);
+
+        setStatus("Übersicht geladen ✔", "text-success");
+
+    } catch (err) {
+
+        console.error(err);
+        setStatus("Fehler beim Laden ❌", "text-danger");
+    }
+}
+
+
+async function renderOverview(data) {
+
+    for (const entry of data) {
+
+        await addRow();
+
+        const rows = document.querySelectorAll("#overviewTable tbody tr");
+        const row = rows[rows.length - 1];
+
+        // ================= FILIALE =================
+
+        const filialeSelect = row.children[0].querySelector("select");
+
+        const filialeValue = String(entry.filiale);
+
+        filialeSelect.value = filialeValue; // direkt setzen
+
+        // ================= TAGE =================
+
+        tage.forEach((tag, i) => {
+
+            const cell = row.children[i + 1];
+
+            const schichtSelect = cell.querySelector("select");
+            const textarea = cell.querySelector("textarea");
+            const mitarbeiterContainer = cell.querySelector("div");
+
+            // 🔥 Key suchen der mit Montag/Dienstag beginnt
+            const key = Object.keys(entry.tage || {})
+                .find(k => k.startsWith(tag));
+
+            if (!key) return;
+
+            const daten = entry.tage[key];
+
+            // Schicht direkt setzen
+            schichtSelect.value = daten.schicht || "";
+
+            // Notiz setzen
+            textarea.value = daten.notiz || "";
+
+            // Mitarbeiter rendern
+            mitarbeiterContainer.innerHTML = "";
+
+            (daten.mitarbeiter || []).forEach(name => {
+
+                const label = document.createElement("span");
+                label.className = "badge bg-primary me-1 mb-1";
+                label.textContent = name;
+
+                mitarbeiterContainer.appendChild(label);
+            });
+
+        });
+    }
+}
+
+
+
+
+// =====================================================
+// CLEAR
+// =====================================================
+
+function clearOverview() {
+    document.querySelector("#overviewTable tbody").innerHTML = "";
+    selectedRow = null;
+    setStatus("Tabelle geleert","text-danger");
+}
+
+// =====================================================
+// EINZELNE ZEILE LÖSCHEN
+// =====================================================
+
+function deleteSelectedRow() {
+    if (!selectedRow) {
+        alert("Keine Zeile ausgewählt");
+        return;
+    }
+    selectedRow.remove();
+    selectedRow = null;
+}
+
+// =====================================================
+// SMARTPLAN (Stub)
+// =====================================================
+
+function generateSmartPlan() {
+    alert("Smartplan Logik kommt hier rein.");
+}
+
+// =====================================================
+// KALENDERWOCHE
+// =====================================================
+
+async function saveCalendarWeek() {
+    const kw = prompt("Kalenderwoche eingeben:");
+    if (!kw) return;
+
+    const jahr = new Date().getFullYear();
+
+    await fetch(`${API}/kalenderwochen/${kw}/${jahr}`,{
+        method:"POST"
+    });
+
+    setStatus(`KW ${kw} gespeichert ✔`,"text-success");
+}
+
+// =====================================================
+// KALENDERWOCHE LADEN (SAUBER & EINHEITLICH)
+// =====================================================
+
+async function loadCalendarWeek() {
+
+    const kw = prompt("Kalenderwoche eingeben:");
+    if (!kw) return;
+
+    const jahr = new Date().getFullYear();
+
+    try {
+
+        const res = await fetch(`${API}/kalenderwochen/${kw}/${jahr}`);
+
+        if (!res.ok) {
+            throw new Error("KW nicht gefunden");
+        }
+
+        const data = await res.json();
+
+        clearOverview();
+
+        await renderOverview(data.uebersicht);
+
+        setStatus(`KW ${kw} geladen ✔`, "text-success");
+
+    } catch (err) {
+
+        console.error(err);
+        setStatus("Fehler beim Laden ❌", "text-danger");
+    }
+}
+
+// =====================================================
+// DATEI IMPORT (optional, falls gebraucht)
+// =====================================================
+
+function importOverviewFromFile(file) {
+
+    const reader = new FileReader();
+
+    reader.onload = async function(event) {
+
+        const json = JSON.parse(event.target.result);
+
+        clearOverview();
+
+        if (json.tage) updateTableHeader(json.tage);
+        if (json.data) await renderOverview(json.data);
+
+        setStatus("Datei erfolgreich geladen ✔", "text-success");
+    };
+
+    reader.readAsText(file);
+}
+
+
+// =====================================================
+// TABELLEN HEADER OHNE DATUM
+// =====================================================
+
+function updateTableHeader() {
+
+    const headerRow = document.querySelector("#overviewTable thead tr");
+
+    tage.forEach((tag, index) => {
+
+        const th = headerRow.children[index + 1];
+
+        if (th) {
+            th.textContent = tag;
+        }
+    });
+}
+
+
+
+// =====================================================
+// KW AUS BROWSER LADEN (EINZIGE VERSION)
+// =====================================================
+
+function handleKWFile(input) {
+
+    const file = input.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = async function(event) {
+
+        try {
+
+            const data = JSON.parse(event.target.result);
+
+            if (!data.tage || !data.uebersicht) {
+                throw new Error("Ungültige KW Struktur");
+            }
+
+            // 1️⃣ Tabelle leeren
+            clearOverview();
+
+            // 2️⃣ Header mit Datum setzen
+            updateTableHeader();
+
+            // 3️⃣ Übersicht rendern
+            await renderOverview(data.uebersicht);
+
+            // 4️⃣ Als aktuelle Übersicht speichern
+            await fetch(`${API}/uebersicht`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    mode: document.querySelector("input[name='mode']:checked").value,
+                    data: data.uebersicht,
+                    tage: data.tage
+                })
+            });
+
+            setStatus("KW erfolgreich geladen und aktiviert ✔", "text-success");
+
+        } catch (err) {
+
+            console.error(err);
+            setStatus("Ungültige JSON Datei ❌", "text-danger");
+        }
+    };
+
+    reader.readAsText(file);
+    input.value = "";
+}
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
